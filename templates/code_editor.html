@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Collaborative Code Editor</title>
+</head>
+<body>
+    <h1>Collaborative Code Editor</h1>
+    <textarea id="code" rows="10" cols="50"></textarea>
+    <br>
+    <button id="sendButton">Send</button>
+
+    <script>
+        const codeArea = document.getElementById('code');
+        const sendButton = document.getElementById('sendButton');
+
+        // WebSocket connection
+        const socket = new WebSocket("ws://127.0.0.1:8000/ws/code-editor/");
+
+
+        socket.onopen = function() {
+            console.log("Connected to WebSocket");
+        };
+
+        socket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            const message = data['message'];
+
+            // Update code area with the received message
+            codeArea.value = message;
+        };
+
+        sendButton.onclick = function() {
+            const message = codeArea.value;
+
+            // Send message to WebSocket
+            socket.send(JSON.stringify({
+                'message': message
+            }));
+        };
+    </script>
+</body>
+</html>
