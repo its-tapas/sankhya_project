@@ -58,6 +58,7 @@ git checkout -b feature/your-feature-name
 ```
 > Make your changes and commit:
 ```
+pip freeze > requirements.txt
 git add .
 git commit -m "Add your commit message here"
 ```
@@ -68,10 +69,9 @@ git push origin feature/your-feature-name
 > Open a pull request on GitHub.
 
 ## NOTE: Do not push Virtual environment into repo, delete that before commits and use below command before committing your changes to update the requirement file
-'''
+```
 pip freeze > requirements.txt
-'''
-
+```
 
 //Troubleshooting
 ```
